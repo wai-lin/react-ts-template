@@ -1,12 +1,14 @@
+import { newStore } from '@utils/StoreHelpers';
 import create from 'zustand';
-import { newStore } from '~/utils/StoreHelpers';
 
 // ========== Types ==========
 interface TState {
 	count: number;
+	message?: string;
 }
 interface TComputed {
 	doubledCount: number;
+	messageWithCount: string;
 }
 interface TActions {
 	increaseCount: (inc?: number) => void;
@@ -21,10 +23,14 @@ export const useCounterStore = create<TStore<TState, TComputed, TActions>>(
 			set,
 			initialState: {
 				count: 0,
+				message: '',
 			},
 			computed: {
 				get doubledCount() {
 					return get().state.count * 2;
+				},
+				get messageWithCount() {
+					return get().state?.message ?? `${get().state.count}`;
 				},
 			},
 			actions: {

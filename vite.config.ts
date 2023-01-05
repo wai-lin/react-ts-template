@@ -17,8 +17,7 @@ export default defineConfig(({ mode }) => {
 		plugins: [
 			react(),
 			pages({
-				routeStyle: 'nuxt',
-				exclude: ['**/components/*.vue'],
+				exclude: ['**/components/*.tsx'],
 			}),
 		],
 		resolve: {

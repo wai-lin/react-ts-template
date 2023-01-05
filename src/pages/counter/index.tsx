@@ -2,12 +2,12 @@ import { useCounterStore } from '~/store/counter.store';
 
 export default function Page() {
 	const counterStore = useCounterStore();
+
 	const onCounterChange: TOnChange<HTMLInputElement> = (e) => {
 		counterStore.setState({
 			count: Number(e.currentTarget.value),
 		});
 	};
-
 	const onIncreaseCountClick: TOnClick<HTMLButtonElement> = () => {
 		counterStore.actions.increaseCount();
 	};

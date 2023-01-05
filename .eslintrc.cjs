@@ -39,6 +39,7 @@ module.exports = {
 		'comma-dangle': [ERROR, 'always-multiline'],
 		'no-tabs': [OFF],
 		'no-undef': [OFF],
+		'no-underscore-dangle': [OFF],
 		'indent': [OFF, 'tab'],
 		'no-unused-vars': [OFF],
 
