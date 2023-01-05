@@ -22,6 +22,7 @@ export default function Page() {
 	});
 
 	const onLoginSubmit = handleSubmit((data) => {
+		// eslint-disable-next-line no-console
 		console.log(data);
 	});
 
