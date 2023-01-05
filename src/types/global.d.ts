@@ -13,4 +13,5 @@ declare global {
 
 	type TOnChange<El> = React.ChangeEventHandler<El>;
 	type TOnClick<El> = React.MouseEventHandler<El>;
+	type TOnSubmit = React.FormEventHandler<HTMLFormElement>;
 }

@@ -8,16 +8,20 @@ import { loadedFormatters, loadedLocales, locales } from './i18n-util.js'
 import en from './en/index.js'
 import fr from './fr/index.js'
 
+import en_auth_login from './en/auth_login/index.js'
 import en_home from './en/home/index.js'
+import fr_auth_login from './fr/auth_login/index.js'
 import fr_home from './fr/home/index.js'
 
 const localeTranslations = {
 	en: {
 		...en,
+		auth_login: en_auth_login,
 		home: en_home
 	},
 	fr: {
 		...fr,
+		auth_login: fr_auth_login,
 		home: fr_home
 	},
 }

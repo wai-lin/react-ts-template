@@ -12,9 +12,11 @@ const localeTranslationLoaders = {
 
 const localeNamespaceLoaders = {
 	en: {
+		auth_login: () => import('./en/auth_login/index.js'),
 		home: () => import('./en/home/index.js')
 	},
 	fr: {
+		auth_login: () => import('./fr/auth_login/index.js'),
 		home: () => import('./fr/home/index.js')
 	}
 }

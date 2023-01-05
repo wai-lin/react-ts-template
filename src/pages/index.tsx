@@ -27,7 +27,14 @@ export default function Page() {
 				</select>
 			</article>
 
-			<Link to="counter">Counter store example</Link>
+			<dl>
+				<dd>
+					<Link to="auth/login">Form validation example</Link>
+				</dd>
+				<dd>
+					<Link to="counter">Counter store example</Link>
+				</dd>
+			</dl>
 		</div>
 	);
 }

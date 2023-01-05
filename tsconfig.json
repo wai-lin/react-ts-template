@@ -19,6 +19,7 @@
     "paths": {
       "@utils/*": ["./src/utils/*"],
       "@pages/*": ["./src/pages/*"],
+      "@schemas/*": ["./src/schemas/*"],
       "@store/*": ["./src/store/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@components/*": ["./src/components/*"],

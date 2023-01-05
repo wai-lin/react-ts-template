@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
 			alias: {
 				'@utils': resolvePath('./src/utils'),
 				'@pages': resolvePath('./src/pages'),
+				'@schemas': resolvePath('./src/schemas'),
 				'@store': resolvePath('./src/store'),
 				'@hooks': resolvePath('./src/hooks'),
 				'@components': resolvePath('./src/components'),
