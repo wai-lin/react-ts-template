@@ -22,13 +22,13 @@ export default defineConfig(({ mode }) => {
 		],
 		resolve: {
 			alias: {
-				'~': resolvePath('./src'),
 				'@utils': resolvePath('./src/utils'),
 				'@pages': resolvePath('./src/pages'),
 				'@store': resolvePath('./src/store'),
 				'@hooks': resolvePath('./src/hooks'),
 				'@components': resolvePath('./src/components'),
-				'@base': resolvePath('./src/components/base'),
+				'@i18n': resolvePath('./src/i18n'),
+				'~': resolvePath('./src'),
 			},
 		},
 	};

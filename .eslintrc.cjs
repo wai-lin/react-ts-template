@@ -41,6 +41,7 @@ module.exports = {
 		'no-undef': [OFF],
 		'indent': [OFF, 'tab'],
 		'no-unused-vars': [OFF],
+		'camelcase': [OFF],
 
 		// typescript eslint
 		'@typescript-eslint/no-unused-vars': [ERROR],

@@ -10,7 +10,8 @@
 		"lint": "eslint src/** --ext ts,tsx,js,jsx",
 		"lint:fix": "npm run lint -- --fix",
 		"commit": "git add -A && cz",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"typesafe-i18n": "typesafe-i18n"
 	},
 	"config": {
 		"commitizen": {
@@ -24,6 +25,7 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.6.1",
+		"typesafe-i18n": "^5.18.1",
 		"zustand": "^4.2.0",
 		"zustand-signal": "^0.1.0"
 	},

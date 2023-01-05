@@ -1,49 +1,42 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+	queryClient,
+	ReactQueryDevtoolsProduction,
+	useReactQueryProductionDevtools,
+} from '@hooks/useReactQuery';
+import { useInitTypesafeI18n } from '@hooks/useTypesafeI18n';
+import TypesafeI18n from '@i18n/i18n-react';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from '~react-pages';
 
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-		},
-	},
-});
+// ========== React Router ==========
 const router = createBrowserRouter(routes);
 
-// ========== ReactQuery Devtools ==========
-const ReactQueryDevtoolsProduction = lazy(() =>
-	import('@tanstack/react-query-devtools/build/lib/index.prod.js').then(
-		(d) => ({
-			default: d.ReactQueryDevtools,
-		}),
-	),
-);
-
 export default function App() {
-	// ========== ReactQuery Production Devtool ==========
-	const [showDevtools, setShowDevtools] = useState(false);
-	useEffect(() => {
-		// @ts-ignore
-		window.toggleDevtools = () => setShowDevtools((old) => !old);
-	}, []);
+	const { i18nWasLoaded } = useInitTypesafeI18n();
+	const { showDevtools } = useReactQueryProductionDevtools();
+
+	if (!i18nWasLoaded) return null;
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<Suspense fallback={<div>Loading...</div>}>
-				<RouterProvider router={router} />
-			</Suspense>
-
-			{/* ========== Development Devtool ========== */}
-			<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-			{/* ========== Production Devtool ========== */}
-			{showDevtools && (
-				<Suspense fallback={null}>
-					<ReactQueryDevtoolsProduction />
+		<TypesafeI18n locale="en">
+			<QueryClientProvider client={queryClient}>
+				{/* ========== React Router ========== */}
+				<Suspense fallback={<div>Loading...</div>}>
+					<RouterProvider router={router} />
 				</Suspense>
-			)}
-		</QueryClientProvider>
+
+				{/* ========== Development Devtool ========== */}
+				<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+				{/* ========== Production Devtool ========== */}
+				{showDevtools && (
+					<Suspense fallback={null}>
+						<ReactQueryDevtoolsProduction />
+					</Suspense>
+				)}
+			</QueryClientProvider>
+		</TypesafeI18n>
 	);
 }

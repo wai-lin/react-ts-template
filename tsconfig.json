@@ -17,13 +17,13 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
       "@utils/*": ["./src/utils/*"],
       "@pages/*": ["./src/pages/*"],
       "@store/*": ["./src/store/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@components/*": ["./src/components/*"],
-      "@base/*": ["./src/components/base/*"],
+      "@i18n/*": ["./src/i18n/*"],
+      "~/*": ["./src/*"],
     },
     "typeRoots": ["./src/types"]
   },
