@@ -1,8 +1,8 @@
-import type { Translation } from '../i18n-types.js';
+import type { BaseTranslation } from '../i18n-types.js';
 
-const de: Translation = {
-	// this is an example Translation, just rename or delete this folder if you want
-	HI: 'Hallo {name}! Bitte hinterlasse einen Stern, wenn dir das Projekt gefällt: https://github.com/ivanhofer/typesafe-i18n',
+const fr: BaseTranslation = {
+	TotalAmountUSD: 'Your total amount is {amount:number|USD}.',
+	TotalAmountMMK: 'You total amount is {amount:number|currency|MMK}',
 };
 
-export default de;
+export default fr;

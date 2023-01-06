@@ -14,6 +14,9 @@ export default defineConfig(({ mode }) => {
 		server: {
 			port: Number(env.PORT || 3000),
 		},
+		build: {
+			outDir: env.BUILD_DIR || 'dist',
+		},
 		plugins: [
 			react(),
 			pages({

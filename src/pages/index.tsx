@@ -1,11 +1,15 @@
-import { useI18nNamespace } from '@hooks/useTypesafeI18n';
+import {
+	useLoadI18nLocale,
+	useLoadI18nNamespace,
+} from '@hooks/useTypesafeI18n';
 import { useI18nContext } from '@i18n/i18n-react';
 import { Locales } from '@i18n/i18n-types';
 import { locales } from '@i18n/i18n-util';
 import { Link } from 'react-router-dom';
 
 export default function Page() {
-	useI18nNamespace('home');
+	useLoadI18nLocale();
+	useLoadI18nNamespace('home');
 	const { LL, locale, setLocale } = useI18nContext();
 
 	const onLocaleChange: TOnChange<HTMLSelectElement> = (e) => {
@@ -17,6 +21,10 @@ export default function Page() {
 		<div style={{ textAlign: 'center' }}>
 			<article style={{ marginBottom: '2rem' }}>
 				<h1>{LL.home.Heading()}</h1>
+				<ul>
+					<li>{LL.TotalAmountMMK({ amount: 384280 })}</li>
+					<li>{LL.TotalAmountUSD({ amount: 6593000 })}</li>
+				</ul>
 
 				<select defaultValue={locale} onChange={onLocaleChange}>
 					{locales.map((lang) => (

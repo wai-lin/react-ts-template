@@ -43,12 +43,30 @@ export function useInitTypesafeI18n(options?: TUseTypesafeI18nOptions) {
  *
  * eg.
  * ```tsx
- * useI18nNamespace('home');
+ * useLoadI18nLocale('home');
+ * const { LL } = useI18nContext();
+ * console.log(LL.Heading());
+ * ```
+ */
+export async function useLoadI18nLocale() {
+	const { locale, setLocale } = useI18nContext();
+
+	useEffect(() => {
+		loadLocaleAsync(locale).then(() => setLocale(locale));
+	}, [locale, setLocale]);
+}
+
+/**
+ * Load namespace
+ *
+ * eg.
+ * ```tsx
+ * useLoadI18nNamespace('home');
  * const { LL } = useI18nContext();
  * console.log(LL.home.Heading());
  * ```
  */
-export async function useI18nNamespace(namespace: Namespaces) {
+export async function useLoadI18nNamespace(namespace: Namespaces) {
 	const { locale, setLocale } = useI18nContext();
 
 	useEffect(() => {
