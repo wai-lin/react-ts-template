@@ -1,15 +1,11 @@
-import {
-	useLoadI18nLocale,
-	useLoadI18nNamespace,
-} from '@hooks/useTypesafeI18n';
+import { useLoadI18nLocale } from '@hooks/useTypesafeI18n';
 import { useI18nContext } from '@i18n/i18n-react';
 import { Locales } from '@i18n/i18n-types';
 import { locales } from '@i18n/i18n-util';
 import { Link } from 'react-router-dom';
 
 export default function Page() {
-	useLoadI18nLocale();
-	useLoadI18nNamespace('home');
+	useLoadI18nLocale({ namespaces: ['home'] });
 	const { LL, locale, setLocale } = useI18nContext();
 
 	const onLocaleChange: TOnChange<HTMLSelectElement> = (e) => {

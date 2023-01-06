@@ -2,7 +2,7 @@ import { useI18nContext } from '@i18n/i18n-react';
 import { Locales, Namespaces } from '@i18n/i18n-types';
 import { detectLocale } from '@i18n/i18n-util';
 import { loadLocaleAsync, loadNamespaceAsync } from '@i18n/i18n-util.async';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { localStorageDetector } from 'typesafe-i18n/detectors';
 
 export const detectedLocale = detectLocale(localStorageDetector);
@@ -38,38 +38,58 @@ export function useInitTypesafeI18n(options?: TUseTypesafeI18nOptions) {
 	return { i18nWasLoaded };
 }
 
+interface TUseLoadI18nLocaleOptions {
+	namespaces?: Namespaces[];
+	onError?: (error: Error) => void;
+}
 /**
- * Load namespace
+ * Load locale files and namespace when user set the locale.
+ * By default, this hook will only load default locale files
+ * unless the `namespaces` options is defined in config.
  *
  * eg.
  * ```tsx
- * useLoadI18nLocale('home');
- * const { LL } = useI18nContext();
+ * useLoadI18nLocale({ namespaces: ['home'] }); // parameter is optional
+ * const { LL, setLocale } = useI18nContext();
+ * console.log(LL.Heading());
+ * setLocale('en')
  * console.log(LL.Heading());
  * ```
  */
-export async function useLoadI18nLocale() {
+export function useLoadI18nLocale(options?: TUseLoadI18nLocaleOptions) {
+	const { namespaces, onError } = options ?? {};
+
 	const { locale, setLocale } = useI18nContext();
 
-	useEffect(() => {
-		loadLocaleAsync(locale).then(() => setLocale(locale));
-	}, [locale, setLocale]);
-}
+	const onLocaleChange = useCallback(async () => {
+		try {
+			// load default locale files
+			await loadLocaleAsync(locale);
 
-/**
- * Load namespace
- *
- * eg.
- * ```tsx
- * useLoadI18nNamespace('home');
- * const { LL } = useI18nContext();
- * console.log(LL.home.Heading());
- * ```
- */
-export async function useLoadI18nNamespace(namespace: Namespaces) {
-	const { locale, setLocale } = useI18nContext();
+			// load namespace locale files if namespace is provided
+			if (namespaces)
+				namespaces.forEach(async (ns) => {
+					await loadNamespaceAsync(locale, ns);
+				});
+		} catch (e) {
+			if (onError) onError(e as unknown as Error);
+
+			// eslint-disable-next-line no-console
+			console.error(`Error while loading locale ${locale}.`);
+			if (namespaces)
+				// eslint-disable-next-line no-console
+				console.error(`Error while loading namespaces ${namespaces}`);
+		} finally {
+			// finally set the locale to ensure the locale is set
+			setLocale(locale);
+		}
+		// this rule is disabled since setLocale in
+		// deps array will trigger infinite rerender
+		// which is not the desired process.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [namespaces, locale]);
 
 	useEffect(() => {
-		loadNamespaceAsync(locale, namespace).then(() => setLocale(locale));
-	}, [locale, namespace, setLocale]);
+		onLocaleChange();
+	}, [onLocaleChange]);
 }
