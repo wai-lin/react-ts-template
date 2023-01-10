@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useI18nNamespace } from '@hooks/useTypesafeI18n';
+import { useLoadI18nLocales } from '@hooks/useTypesafeI18n';
 import { useI18nContext } from '@i18n/i18n-react';
 import {
 	loginFormSchema,
@@ -9,7 +9,8 @@ import {
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
-	useI18nNamespace('auth_login');
+	useLoadI18nLocales('auth_login');
+
 	const { LL } = useI18nContext();
 	const LValidation = LL.auth_login.LoginForm.Validation;
 
