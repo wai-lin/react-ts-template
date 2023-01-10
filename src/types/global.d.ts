@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-	interface TStore<TState, TComputed, TActions> {
+	interface TStore<TState, TActions, TComputed> {
 		initialState: TState;
 		state: TState;
 		computed: TComputed;
