@@ -1,12 +1,12 @@
-import { useLoadI18nLocale } from '@hooks/useTypesafeI18n';
+import { useLoadI18nLocales } from '@hooks/useTypesafeI18n';
 import { useI18nContext } from '@i18n/i18n-react';
 import { Locales } from '@i18n/i18n-types';
 import { locales } from '@i18n/i18n-util';
 import { Link } from 'react-router-dom';
 
 export default function Page() {
-	useLoadI18nLocale({ namespaces: ['home'] });
 	const { LL, locale, setLocale } = useI18nContext();
+	useLoadI18nLocales('home');
 
 	const onLocaleChange: TOnChange<HTMLSelectElement> = (e) => {
 		const value = e.currentTarget.value as Locales;

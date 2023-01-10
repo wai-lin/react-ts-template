@@ -1,5 +1,4 @@
-import create from 'zustand';
-import { newStore } from '~/utils/StoreHelpers';
+import { createStore } from '@utils/StoreHelpers';
 
 // ========== Types ==========
 interface TState {
@@ -14,28 +13,25 @@ interface TActions {
 }
 
 // ========== Store ==========
-export const useCounterStore = create<TStore<TState, TComputed, TActions>>(
-	(set, get) =>
-		newStore({
-			get,
-			set,
-			initialState: {
-				count: 0,
+export const useCounterStore = createStore<TState, TComputed, TActions>(
+	(set, get) => ({
+		initialState: {
+			count: 0,
+		},
+		computed: {
+			get doubledCount() {
+				return get().state.count * 2;
 			},
-			computed: {
-				get doubledCount() {
-					return get().state.count * 2;
-				},
-			},
-			actions: {
-				increaseCount: (inc = 1) =>
-					set({
-						state: { count: get().state.count + inc },
-					}),
-				decreaseCount: (dec = 1) =>
-					set({
-						state: { count: get().state.count - dec },
-					}),
-			},
-		}),
+		},
+		actions: {
+			increaseCount: (inc = 1) =>
+				set({
+					state: { count: get().state.count + inc },
+				}),
+			decreaseCount: (dec = 1) =>
+				set({
+					state: { count: get().state.count - dec },
+				}),
+		},
+	}),
 );
