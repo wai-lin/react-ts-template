@@ -46,7 +46,7 @@ interface TState {
 interface TActions {
 	loadLocales: (locale: Locales, setLocale: (l: Locales) => void) => void;
 }
-const useLoadI18nStore = createStore<TState, {}, TActions>((_set, get) => ({
+const useLoadI18nStore = createStore<TState, TActions>((_set, get) => ({
 	initialState: {
 		namespaces: [],
 	},

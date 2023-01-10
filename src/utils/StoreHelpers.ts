@@ -1,53 +1,11 @@
 import { merge } from 'lodash-es';
 import create, { StoreApi } from 'zustand';
 
-type TNewStoreConfig<
-	TState extends Object,
-	TComputed extends Object = {},
-	TActions extends Object = {},
-	Store = TStore<TState, TComputed, TActions>,
-> = {
-	get: StoreApi<Store>['getState'];
-	set: StoreApi<Store>['setState'];
-	initialState: TState;
-	computed?: TComputed;
-	actions?: TActions;
-};
-
-export function newStore<
-	TState extends Object,
-	TComputed extends Object = {},
-	TActions extends Object = {},
->({
-	get,
-	set,
-	initialState,
-	computed = {} as TComputed,
-	actions = {} as TActions,
-}: TNewStoreConfig<TState, TComputed, TActions>): TStore<
-	TState,
-	TComputed,
-	TActions
-> {
-	return {
-		initialState,
-		state: initialState,
-		computed,
-		actions,
-		$reset: () => set({}, true),
-		resetState: () => set({ state: initialState }),
-		setState: (newState) =>
-			set({
-				state: merge(get().state, newState),
-			}),
-	};
-}
-
 type TCreateStoreCb<
 	TState extends Object,
-	TComputed extends Object = {},
 	TActions extends Object = {},
-	TStoreShape = TStore<TState, TComputed, TActions>,
+	TComputed extends Object = {},
+	TStoreShape = TStore<TState, TActions, TComputed>,
 > = (
 	set: StoreApi<TStoreShape>['setState'],
 	get: StoreApi<TStoreShape>['getState'],
@@ -56,12 +14,13 @@ type TCreateStoreCb<
 	computed?: TComputed;
 	actions?: TActions;
 };
+
 export function createStore<
 	TState extends Object,
-	TComputed extends Object = {},
 	TActions extends Object = {},
->(cb: TCreateStoreCb<TState, TComputed, TActions>) {
-	return create<TStore<TState, TComputed, TActions>>((set, get) => {
+	TComputed extends Object = {},
+>(cb: TCreateStoreCb<TState, TActions, TComputed>) {
+	return create<TStore<TState, TActions, TComputed>>((set, get) => {
 		const { initialState, computed, actions } = cb(set, get);
 
 		return {

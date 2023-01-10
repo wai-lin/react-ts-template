@@ -4,16 +4,16 @@ import { createStore } from '@utils/StoreHelpers';
 interface TState {
 	count: number;
 }
-interface TComputed {
-	doubledCount: number;
-}
 interface TActions {
 	increaseCount: (inc?: number) => void;
 	decreaseCount: (dec?: number) => void;
 }
+interface TComputed {
+	doubledCount: number;
+}
 
 // ========== Store ==========
-export const useCounterStore = createStore<TState, TComputed, TActions>(
+export const useCounterStore = createStore<TState, TActions, TComputed>(
 	(set, get) => ({
 		initialState: {
 			count: 0,
