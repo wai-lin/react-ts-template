@@ -12,23 +12,31 @@ export default defineConfig(({ mode }) => {
 
 	return {
 		server: {
-			port: Number(env.PORT || 3000),
+			port: Number(env.DEV_PORT || 3000),
+		},
+		build: {
+			outDir: env.BUILD_DIR || 'dist',
 		},
 		plugins: [
 			react(),
 			pages({
+<<<<<<< HEAD
 				exclude: ['**/components/*.tsx'],
+=======
+				exclude: ['**/components/**/*'],
+>>>>>>> main
 			}),
 		],
 		resolve: {
 			alias: {
-				'~': resolvePath('./src'),
 				'@utils': resolvePath('./src/utils'),
 				'@pages': resolvePath('./src/pages'),
+				'@schemas': resolvePath('./src/schemas'),
 				'@store': resolvePath('./src/store'),
 				'@hooks': resolvePath('./src/hooks'),
 				'@components': resolvePath('./src/components'),
-				'@base': resolvePath('./src/components/base'),
+				'@i18n': resolvePath('./src/i18n'),
+				'~': resolvePath('./src'),
 			},
 		},
 	};
