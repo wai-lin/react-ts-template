@@ -38,7 +38,17 @@ async function createServer(params?: TParams) {
 		},
 	});
 
-	if (!isProduction) {
+	// run on production
+	if (isProduction) {
+		app.use((await import('compression')).default());
+		app.use(
+			(await import('serve-static')).default(resolvePath('dist/client'), {
+				index: false,
+			}),
+		);
+
+		// run other than production
+	} else {
 		app.use(viteInstance.middlewares);
 	}
 
