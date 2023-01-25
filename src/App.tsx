@@ -1,3 +1,4 @@
+import { LoadingPage } from '@components/pages';
 import {
 	queryClient,
 	ReactQueryDevtoolsProduction,
@@ -24,7 +25,7 @@ export default function App() {
 		<TypesafeI18n locale="en">
 			<QueryClientProvider client={queryClient}>
 				{/* ========== React Router ========== */}
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<LoadingPage />}>
 					<RouterProvider router={router} />
 				</Suspense>
 
